@@ -20,7 +20,7 @@ import reactor.core.publisher.UnicastProcessor;
  */
 @SpringBootApplication
 @PWA(name = "Project Base for Vaadin with Spring", shortName = "Project Base")
-@Push
+@Push //Allow UI update from an outside thread
 public class Application extends SpringBootServletInitializer implements AppShellConfigurator {
 
     public static void main(String[] args) {

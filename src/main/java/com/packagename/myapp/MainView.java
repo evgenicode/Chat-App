@@ -38,7 +38,7 @@ public class MainView extends VerticalLayout {
         setDefaultHorizontalComponentAlignment(Alignment.CENTER);
         addClassName("main-view");
 
-        H1 header = new H1("Vaadin Chat");
+        H1 header = new H1("Chat App");
         header.getElement().getThemeList().add("dark");
 
         add(header);
@@ -46,24 +46,29 @@ public class MainView extends VerticalLayout {
         askUsername();
     }
 
+
     private void askUsername() {
         HorizontalLayout layout = new HorizontalLayout();
-        TextField usernameField = new TextField();
+        TextField placeholderField = new TextField();
+        placeholderField.setPlaceholder("Choose a name");
         Button startButton = new Button("Start chat");
-        layout.add(usernameField, startButton);
+        layout.add(placeholderField, startButton);
         add(layout);
         
         startButton.addClickListener(click -> {
-            username = usernameField.getValue();
+            username = placeholderField.getValue();
             remove(layout);
             showChat();
         });
     }
 
+
     private void showChat() {
         MessageList messageList = new MessageList();
         add(messageList, createInputLayout());
         expand(messageList);
+
+        //Allow UI update from an outside thread
 
         messages.subscribe(message -> {
             getUI().ifPresent(ui -> ui.access(() ->
